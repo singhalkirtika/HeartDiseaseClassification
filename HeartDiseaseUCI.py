@@ -400,7 +400,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
 # %%
-num_columns =  ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
+data = data.drop('age', axis=1)
+
+# %%
+num_columns =  ['trestbps', 'chol', 'thalach', 'oldpeak']
 
 print('Columns with continous data = ',num_columns)
 
@@ -462,7 +465,7 @@ data_tf = np.hstack([num_data_tf,cat_data_tf])
 data_tf_df = pd.DataFrame(data_tf)
 
 # %%
-X = data.drop('target',axis=1)
+X = data.drop(['target'],axis=1)
 Y = data['target']
 
 X_tf = data_tf_df
@@ -634,3 +637,6 @@ print('AdaBoost Accuracy with SGDClassifier (Scaled Data)= ',(ab.score(testX_tf,
 ab = AdaBoostClassifier(algorithm='SAMME',base_estimator=SVC(kernel='linear',C = 1000, gamma=1),n_estimators=1000)
 ab.fit(trainX_tf,trainY_tf)
 print('AdaBoost Accuracy with SVC = (Scaled Data)',(ab.score(testX_tf,testY_tf)*100))
+
+# %%
+
